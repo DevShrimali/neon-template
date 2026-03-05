@@ -29,13 +29,16 @@ export function Navbar() {
 
     return (
         <>
+            <div className="fixed top-0 left-0 right-0 h-24 bg-gradient-to-b from-[var(--bg-primary)] to-transparent z-40 pointer-events-none" />
             <header
                 className={cn(
-                    "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-                    isScrolled ? "py-4 bg-[#08090A]/85 backdrop-blur-[12px] border-b border-[var(--border)]" : "py-6 bg-transparent"
+                    "fixed left-1/2 -translate-x-1/2 z-50 transition-all duration-500 w-full max-w-5xl",
+                    isScrolled
+                        ? "top-4 py-3 px-6 bg-[var(--bg-card)]/80 backdrop-blur-xl border border-[var(--border-glow)] rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.5)]"
+                        : "top-0 py-6 px-6 lg:px-12 bg-transparent"
                 )}
             >
-                <div className="container mx-auto px-6 lg:px-12 flex items-center justify-between">
+                <div className="flex items-center justify-between w-full">
                     <Link href="/" className="font-serif italic text-2xl group flex items-baseline">
                         DEV
                         <span className="text-[var(--accent-primary)] group-hover:text-glow transition-all ml-0.5">.</span>
@@ -56,7 +59,7 @@ export function Navbar() {
                     <div className="hidden md:block">
                         <a
                             href="#resume"
-                            className="px-5 py-2.5 rounded-full border border-[var(--accent-primary)] text-[var(--accent-primary)] font-mono text-sm hover:bg-[var(--accent-primary)]/10 transition-colors inline-block"
+                            className="px-6 py-2 rounded-full bg-[var(--text-primary)] text-[var(--bg-primary)] font-mono text-sm hover:bg-[var(--accent-primary)] hover:text-[#000] transition-colors inline-block font-bold"
                         >
                             Resume ↗
                         </a>

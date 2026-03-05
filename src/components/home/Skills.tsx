@@ -67,11 +67,14 @@ export function Skills() {
 
             {/* Structural Title */}
             <div className="container mx-auto px-6 lg:px-12 mb-16 lg:mb-24 flex justify-between items-end relative z-10">
-                <div className="text-[12vw] leading-[0.8] font-bold tracking-tighter text-[var(--accent-primary)] pointer-events-none sticky">
-                    CAPA-<br /><span className="text-[var(--text-primary)]">BILITIES</span>
+                <div
+                    className="font-bold tracking-tighter text-[var(--accent-primary)] pointer-events-none sticky"
+                    style={{ fontSize: "clamp(3rem, 11vw, 10rem)", lineHeight: "0.8" }}
+                >
+                    CAPABILITIES
                 </div>
-                <div className="hidden lg:block w-[400px] text-right font-mono text-sm uppercase tracking-widest text-[var(--text-muted)]">
-                    Every tool is a means to an end. <br /><span className="text-[var(--text-secondary)]">The real skill is knowing which one to use.</span>
+                <div className="hidden lg:block w-[400px] text-right font-mono text-sm uppercase tracking-widest text-[var(--text-secondary)]">
+                    Every tool is a means to an end. <br /><span className="text-[var(--text-primary)]">The real skill is knowing which one to use.</span>
                 </div>
             </div>
 

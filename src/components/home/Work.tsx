@@ -9,10 +9,26 @@ import { ArrowUpRight } from "lucide-react";
 gsap.registerPlugin(useGSAP);
 
 const PROJECTS = [
-    { title: "Fintech Mobile", category: "Finance", year: "2024", slug: "fintech" },
-    { title: "Crypto Trading", category: "Crypto", year: "2023", slug: "crypto" },
-    { title: "Cleaning Brand", category: "Visual", year: "2023", slug: "cleaning" },
-    { title: "VR Gaming", category: "Immersive", year: "2022", slug: "vr" },
+    {
+        title: "Aura — Neobanking OS",
+        category: "Fintech Platform",
+        year: "2024",
+    },
+    {
+        title: "Lumina — AI Copilot",
+        category: "SaaS Application",
+        year: "2023",
+    },
+    {
+        title: "Zenith — Dashboard",
+        category: "Enterprise Analytics",
+        year: "2022",
+    },
+    {
+        title: "Pulse — Health Tech",
+        category: "Mobile Experience",
+        year: "2022",
+    },
 ];
 
 export function Work() {
@@ -27,11 +43,16 @@ export function Work() {
         const yTo = gsap.quickTo(cursorRef.current, "y", { duration: 0.6, ease: "power3" });
 
         const handleMouseMove = (e: MouseEvent) => {
-            xTo(e.clientX);
-            yTo(e.clientY);
+            const rect = containerRef.current?.getBoundingClientRect();
+            if (rect) {
+                xTo(e.clientX - rect.left);
+                yTo(e.clientY - rect.top);
+            }
         };
 
-        window.addEventListener("mousemove", handleMouseMove);
+        const container = containerRef.current;
+        container?.addEventListener("mousemove", handleMouseMove);
+        container?.addEventListener("mouseleave", () => setHoveredIdx(null));
 
         // Arrow bounce animation
         gsap.to(arrowRef.current, {
@@ -42,7 +63,10 @@ export function Work() {
             ease: "sine.inOut"
         });
 
-        return () => window.removeEventListener("mousemove", handleMouseMove);
+        return () => {
+            container?.removeEventListener("mousemove", handleMouseMove);
+            container?.removeEventListener("mouseleave", () => setHoveredIdx(null));
+        }
     }, { scope: containerRef });
 
     useEffect(() => {
@@ -70,7 +94,7 @@ export function Work() {
     return (
         <section ref={containerRef} id="work" className="py-24 lg:py-40 bg-[var(--bg-card)] border-b border-[var(--border)] relative overflow-hidden">
             <div className="container mx-auto px-6 lg:px-12 mb-20">
-                <div className="font-mono text-xs md:text-sm tracking-widest text-[var(--accent-primary)] uppercase flex justify-between border-b border-[var(--border)] pb-4 mb-2">
+                <div className="font-mono text-sm md:text-base tracking-widest text-[var(--accent-primary)] uppercase flex justify-between border-b border-[var(--border)] pb-4 mb-2">
                     <span>[ Case Studies ]</span>
                     <span>Selected Works</span>
                 </div>
@@ -79,20 +103,22 @@ export function Work() {
             <div className="w-full border-t border-[var(--border)] relative z-10 bg-[var(--bg-card)]">
                 {PROJECTS.map((project, idx) => (
                     <Link
-                        href={`/work/${project.slug}`}
+                        href={`/work/${project.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
                         key={idx}
                         onMouseEnter={() => setHoveredIdx(idx)}
                         onMouseLeave={() => setHoveredIdx(null)}
-                        className="group flex flex-col md:flex-row items-center justify-between py-12 px-6 lg:px-12 border-b border-[var(--border)] hover:bg-[var(--bg-primary)] hover:pl-16 transition-all duration-500 relative select-none"
+                        className="group flex flex-col md:flex-row items-center justify-between py-12 px-6 relative select-none overflow-hidden"
                     >
+                        <div className="absolute inset-0 bg-[var(--accent-primary)] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] z-0 mix-blend-difference" />
+
                         {/* Left aligned info */}
-                        <div className="flex flex-col md:flex-row items-baseline gap-4 md:gap-12 w-full md:w-auto relative z-10">
-                            <span className="font-mono text-sm text-[var(--text-muted)] group-hover:text-[var(--accent-primary)] transition-colors">0{idx + 1}</span>
+                        <div className="flex flex-col md:flex-row items-baseline gap-4 md:gap-12 w-full md:w-auto relative z-10 pointer-events-none">
+                            <span className="font-mono text-sm text-[var(--text-secondary)] mix-blend-difference">0{idx + 1}</span>
                             <h3
-                                className="text-5xl md:text-7xl lg:text-[6vw] font-sans font-bold tracking-tighter uppercase text-[var(--text-primary)] transition-all duration-300"
+                                className="text-5xl md:text-7xl lg:text-[6vw] font-sans font-bold tracking-tighter uppercase text-[var(--text-primary)] transition-all duration-500 mix-blend-difference"
                                 style={{
-                                    WebkitTextStroke: hoveredIdx === idx ? "2px var(--accent-primary)" : "none",
-                                    color: hoveredIdx === idx ? "transparent" : "var(--text-primary)"
+                                    WebkitTextStroke: "1px rgba(240, 237, 232, 0.4)",
+                                    color: "transparent",
                                 }}
                             >
                                 {project.title}
@@ -100,12 +126,9 @@ export function Work() {
                         </div>
 
                         {/* Right aligned info */}
-                        <div className="mt-6 md:mt-0 flex w-full md:w-auto justify-between md:justify-end items-center gap-12 font-mono text-sm uppercase tracking-widest text-[var(--text-secondary)] relative z-10">
-                            <span className="group-hover:text-[var(--text-primary)]">{project.category}</span>
-                            <span className="group-hover:text-[var(--text-primary)]">{project.year}</span>
-                            <div className="w-12 h-12 rounded-full border border-[var(--border-glow)] flex items-center justify-center text-[var(--text-muted)] group-hover:bg-[var(--accent-primary)] group-hover:text-[#08090A] group-hover:border-[var(--accent-primary)] transition-all duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 shrink-0">
-                                <ArrowUpRight size={24} />
-                            </div>
+                        <div className="flex flex-col md:flex-row lg:items-center justify-end font-mono text-sm uppercase gap-4 md:gap-24 w-full md:w-auto mt-6 md:mt-0 relative z-10 pointer-events-none mix-blend-difference text-[var(--text-secondary)]">
+                            <span className="tracking-widest">{project.category}</span>
+                            <span>{project.year}</span>
                         </div>
                     </Link>
                 ))}
@@ -114,7 +137,7 @@ export function Work() {
             {/* GSAP Floating Image Reveal (Desktop) */}
             <div
                 ref={cursorRef}
-                className="hidden md:block fixed top-0 left-0 pointer-events-none z-50 w-[400px] aspect-[4/3] rounded-2xl overflow-hidden border border-[var(--border-glow)] shadow-2xl bg-[var(--bg-primary)] -translate-x-1/2 -translate-y-1/2 opacity-0 scale-[0.8]"
+                className="hidden md:block absolute top-0 left-0 pointer-events-none z-40 w-[400px] aspect-[4/3] rounded-2xl overflow-hidden border border-[var(--border-glow)] shadow-2xl bg-[var(--bg-primary)] -translate-x-1/2 -translate-y-1/2 opacity-0 scale-[0.8]"
             >
                 <div className="absolute inset-0 bg-gradient-to-tr from-[var(--bg-card)] to-[var(--bg-primary)] flex items-center justify-center text-[var(--text-muted)] font-mono text-sm">
                     [ GSAP PREVIEW ]
@@ -126,7 +149,7 @@ export function Work() {
                     href="/work"
                     className="group flex flex-col items-center gap-4 text-[var(--text-muted)] hover:text-[var(--accent-primary)] transition-colors"
                 >
-                    <div className="font-mono text-xs uppercase tracking-[0.3em]">View Archive</div>
+                    <div className="font-mono text-sm uppercase tracking-[0.3em]">View Archive</div>
                     <div ref={arrowRef}>↓</div>
                 </Link>
             </div>

@@ -67,8 +67,8 @@ export function Contact() {
             <div className="container mx-auto px-6 lg:px-12 relative z-10 flex flex-col items-center justify-center min-h-[50vh]">
 
                 {/* Brutalist "INITIATE" */}
-                <div className="font-mono text-sm tracking-[0.5em] text-[var(--accent-primary)] uppercase mb-8 border border-[var(--accent-primary)] px-6 py-2 rounded-full animate-pulse">
-                    [ STATUS: AVAILABLE ]
+                <div className="font-mono text-sm tracking-[0.4em] text-[var(--accent-primary)] uppercase mb-8 border border-[var(--accent-primary)] px-6 py-2.5 rounded-full animate-pulse">
+                    [ SYSTEM: AWAITING INPUT ]
                 </div>
 
                 <h2 className="contact-title text-center font-sans font-bold text-6xl md:text-8xl lg:text-[8vw] uppercase tracking-tighter leading-[0.85] text-[var(--text-primary)]">
@@ -76,7 +76,7 @@ export function Contact() {
                     <span className="font-serif italic text-transparent outline-text drop-shadow-[0_0_30px_rgba(200,255,87,0.3)]" style={{ WebkitTextStroke: "2px var(--accent-primary)" }}>DIALOGUE.</span>
                 </h2>
 
-                <p className="contact-title font-mono text-center text-lg md:text-xl text-[var(--text-muted)] mt-12 max-w-xl mx-auto">
+                <p className="contact-title font-mono text-center text-lg md:text-xl text-[var(--text-secondary)] mt-12 max-w-xl mx-auto">
                     System ready for incoming frequencies. Briefs, bold ideas, or questions.
                 </p>
 
@@ -103,7 +103,7 @@ export function Contact() {
                 </div>
 
                 {/* Social Links Terminal Footer */}
-                <div className="contact-socials flex flex-wrap items-center justify-center gap-x-8 gap-y-4 font-mono text-sm uppercase tracking-widest text-[var(--text-muted)] mt-24">
+                <div className="contact-socials flex flex-wrap items-center justify-center gap-x-8 gap-y-4 font-mono text-sm uppercase tracking-widest text-[var(--text-secondary)] mt-24">
                     {SOCIALS.map(social => (
                         <a key={social} href="#" className="hover:text-[var(--accent-primary)] hover:-translate-y-1 transition-all">{social}</a>
                     ))}

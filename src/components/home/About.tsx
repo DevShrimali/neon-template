@@ -8,10 +8,10 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 const STATS = [
-    { value: "30+", label: "Products Shipped", delay: 0.1, x: "-110%", y: "-100%" },
-    { value: "6+", label: "Years Iterating", delay: 0.3, x: "120%", y: "-30%" },
-    { value: "100%", label: "End-to-End", delay: 0.5, x: "-120%", y: "100%" },
-    { value: "∞", label: "Curiosity", delay: 0.7, x: "100%", y: "90%" },
+    { value: "30+", label: "Products Shipped", delay: 0.1 },
+    { value: "6+", label: "Years Iterating", delay: 0.3 },
+    { value: "100%", label: "End-to-End", delay: 0.5 },
+    { value: "∞", label: "Curiosity", delay: 0.7 },
 ];
 
 export function About() {
@@ -123,7 +123,7 @@ export function About() {
                                 <span className="font-serif italic text-[var(--text-secondary)] font-normal text-glow block mt-4">Great design is an unfair advantage.</span>
                             </h2>
 
-                            <p className="text-lg md:text-xl font-mono text-[var(--text-muted)] text-left leading-relaxed">
+                            <p className="text-lg md:text-xl font-mono text-[var(--text-secondary)] text-left leading-relaxed">
                                 I lead UI/UX for fintechs, healthcare, and SaaS. Over 6 years, I&#39;ve moved from assembling screens to engineering systems that scale. I work end-to-end, closing the gap between founder vision and developer handoff.
                             </p>
 
@@ -132,20 +132,33 @@ export function About() {
                         </div>
                     </div>
 
-                    {/* Floating Stats */}
+                    {/* Floating Stats - Bounds-Safe Grid Version */}
                     <div className="absolute inset-0 pointer-events-none z-20 flex justify-center items-center h-full w-full hidden lg:flex">
-                        {STATS.map((stat, i) => (
-                            <div
-                                key={i}
-                                style={{
-                                    transform: `translate(${stat.x}, ${stat.y})`,
-                                }}
-                                className="desktop-stat-card absolute bg-[var(--bg-card)]/90 backdrop-blur-md border border-[var(--border)] p-6 rounded-2xl shadow-2xl pointer-events-auto hover:border-[var(--accent-primary)] hover:scale-110 transition-colors duration-300 z-40"
-                            >
-                                <div className="text-5xl font-sans font-bold text-[var(--accent-primary)] leading-none mb-2">{stat.value}</div>
-                                <div className="text-sm font-mono text-[var(--text-muted)] uppercase tracking-wider">{stat.label}</div>
+                        <div className="w-[120%] h-[110%] grid grid-cols-2 grid-rows-2 gap-[25vw] relative">
+                            {/* Top Left */}
+                            <div className="desktop-stat-card self-start justify-self-start bg-[var(--bg-card)]/90 backdrop-blur-md border border-[var(--border)] p-6 rounded-2xl shadow-2xl pointer-events-auto hover:border-[var(--accent-primary)] hover:scale-110 transition-colors duration-300 z-40 mt-10">
+                                <div className="text-5xl font-sans font-bold text-[var(--accent-primary)] leading-none mb-2">{STATS[0].value}</div>
+                                <div className="text-sm font-mono text-[var(--text-secondary)] uppercase tracking-wider">{STATS[0].label}</div>
                             </div>
-                        ))}
+
+                            {/* Top Right */}
+                            <div className="desktop-stat-card self-end justify-self-end bg-[var(--bg-card)]/90 backdrop-blur-md border border-[var(--border)] p-6 rounded-2xl shadow-2xl pointer-events-auto hover:border-[var(--accent-primary)] hover:scale-110 transition-colors duration-300 z-40">
+                                <div className="text-5xl font-sans font-bold text-[var(--accent-primary)] leading-none mb-2">{STATS[1].value}</div>
+                                <div className="text-sm font-mono text-[var(--text-secondary)] uppercase tracking-wider">{STATS[1].label}</div>
+                            </div>
+
+                            {/* Bottom Left */}
+                            <div className="desktop-stat-card self-end justify-self-start bg-[var(--bg-card)]/90 backdrop-blur-md border border-[var(--border)] p-6 rounded-2xl shadow-2xl pointer-events-auto hover:border-[var(--accent-primary)] hover:scale-110 transition-colors duration-300 z-40 mb-10">
+                                <div className="text-5xl font-sans font-bold text-[var(--accent-primary)] leading-none mb-2">{STATS[2].value}</div>
+                                <div className="text-sm font-mono text-[var(--text-secondary)] uppercase tracking-wider">{STATS[2].label}</div>
+                            </div>
+
+                            {/* Bottom Right */}
+                            <div className="desktop-stat-card self-start justify-self-end bg-[var(--bg-card)]/90 backdrop-blur-md border border-[var(--border)] p-6 rounded-2xl shadow-2xl pointer-events-auto hover:border-[var(--accent-primary)] hover:scale-110 transition-colors duration-300 z-40">
+                                <div className="text-5xl font-sans font-bold text-[var(--accent-primary)] leading-none mb-2">{STATS[3].value}</div>
+                                <div className="text-sm font-mono text-[var(--text-secondary)] uppercase tracking-wider">{STATS[3].label}</div>
+                            </div>
+                        </div>
                     </div>
 
                     {/* Mobile Fallback Stats */}
@@ -156,7 +169,7 @@ export function About() {
                                 className="mobile-stat-card bg-[var(--bg-card)] border border-[var(--border)] p-6 rounded-2xl shadow-2xl text-center"
                             >
                                 <div className="text-4xl font-sans font-bold text-[var(--accent-primary)] leading-none mb-2">{stat.value}</div>
-                                <div className="text-xs font-mono text-[var(--text-muted)] uppercase tracking-wider">{stat.label}</div>
+                                <div className="text-sm font-mono text-[var(--text-secondary)] uppercase tracking-wider">{stat.label}</div>
                             </div>
                         ))}
                     </div>

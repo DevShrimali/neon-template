@@ -67,16 +67,16 @@ export function Process() {
             }
         });
 
-        // Cards stacking scale effect (very GSAP-like)
+        // Simple entrance animation for cards (no buggy scroll scrubbing)
         const cards = gsap.utils.toArray(".process-card");
 
-        cards.forEach((card: any, index: number) => {
+        cards.forEach((card: any) => {
             gsap.fromTo(card,
-                { y: 100, opacity: 0 },
+                { y: 80, opacity: 0 },
                 {
                     y: 0,
                     opacity: 1,
-                    duration: 1,
+                    duration: 0.8,
                     ease: "power3.out",
                     scrollTrigger: {
                         trigger: card,
@@ -85,23 +85,6 @@ export function Process() {
                     }
                 }
             );
-
-            // Scale down previous cards when they stick to the top
-            if (index < cards.length - 1) {
-                gsap.to(card, {
-                    scale: 0.9 + (index * 0.02),
-                    filter: "blur(4px)",
-                    opacity: 0.5,
-                    ease: "none",
-                    scrollTrigger: {
-                        trigger: card,
-                        start: `top ${15 + (index * 4)}vh`,
-                        endTrigger: sectionRef.current,
-                        end: "bottom bottom",
-                        scrub: true,
-                    }
-                });
-            }
         });
 
     }, { scope: sectionRef });
@@ -119,7 +102,7 @@ export function Process() {
                             HOW I<br />
                             <span className="font-serif italic text-transparent" style={{ WebkitTextStroke: "2px var(--text-primary)" }}>BUILD.</span>
                         </h2>
-                        <p className="text-xl font-mono text-[var(--text-muted)] max-w-sm">Every pixel earns its place. A strategic, research-backed approach to product design.</p>
+                        <p className="text-xl font-mono text-[var(--text-secondary)] max-w-sm">Every pixel earns its place. A strategic, research-backed approach to product design.</p>
                     </div>
                 </div>
 
@@ -128,11 +111,16 @@ export function Process() {
                     {PROCESS_STEPS.map((step, idx) => (
                         <div
                             key={step.num}
-                            className={`process-card sticky rounded-[2rem] p-10 md:p-16 w-full ${step.color} ${step.textColor} border border-[var(--border)] shadow-[0_20px_50px_rgba(0,0,0,0.5)] transform-origin-top will-change-transform`}
-                            style={{ top: `calc(15vh + ${idx * 40}px)`, zIndex: 10 + idx }}
+                            className={`process-card sticky rounded-[2rem] p-10 md:p-16 w-full ${step.color} ${step.textColor} border border-white/10 shadow-[0_-10px_40px_rgba(0,0,0,0.5)] transform-origin-top will-change-transform`}
+                            style={{
+                                top: `calc(15vh + ${idx * 40}px)`,
+                                zIndex: 10 + idx,
+                                // Pure CSS visual scale/stack effect instead of buggy GSAP maths
+                                marginTop: idx === 0 ? "0" : "auto"
+                            }}
                         >
                             <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
-                                <span className="font-serif italic text-6xl md:text-8xl opacity-30 select-none pointer-events-none tracking-tighter leading-none">{step.num}</span>
+                                <span className="font-serif italic text-6xl md:text-8xl opacity-50 select-none pointer-events-none tracking-tighter leading-none">{step.num}</span>
                                 <h3 className="text-4xl md:text-5xl font-sans font-bold uppercase tracking-tight">{step.title}</h3>
                             </div>
 
